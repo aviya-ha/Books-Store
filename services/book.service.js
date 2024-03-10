@@ -6,45 +6,45 @@ var gFilterBy = { txt: '', minSpeed: 0 }
 _createBooks()
 
 export const bookService = {
-    // query,
-    // get,
-    // remove,
-    // save,
+    query,
+    get,
+    remove,
+    save,
     getEmptyBook,
     // getNextBookId,
     // getFilterBy,
     // setFilterBy
 }
 
-// function query() {
-//     return storageService.query(BOOK_KEY)
-//         .then(books => {
-//             if (gFilterBy.txt) {
-//                 const regex = new RegExp(gFilterBy.txt, 'i')
-//                 books = books.filter(book => regex.test(book.vendor))
-//             }
-//             if (gFilterBy.minSpeed) {
-//                 books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
-//             }
-//             return books
-//         })
-// }
+function query() {
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            // if (gFilterBy.txt) {
+            //     const regex = new RegExp(gFilterBy.txt, 'i')
+            //     books = books.filter(book => regex.test(book.vendor))
+            // }
+            // if (gFilterBy.minSpeed) {
+            //     books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
+            // }
+            return books
+        })
+}
 
-// function get(bookId) {
-//     return storageService.get(BOOK_KEY, bookId)
-// }
+function get(bookId) {
+    return storageService.get(BOOK_KEY, bookId)
+}
 
-// function remove(bookId) {
-//     return storageService.remove(BOOK_KEY, bookId)
-// }
+function remove(bookId) {
+    return storageService.remove(BOOK_KEY, bookId)
+}
 
-// function save(book) {
-//     if (book.id) {
-//         return storageService.put(BOOK_KEY, book)
-//     } else {
-//         return storageService.post(BOOK_KEY, book)
-//     }
-// }
+function save(book) {
+    if (book.id) {
+        return storageService.put(BOOK_KEY, book)
+    } else {
+        return storageService.post(BOOK_KEY, book)
+    }
+}
 
 function getEmptyBook(title = '', amount = 0) {
     // return { id: '', title, listPrice }
@@ -54,7 +54,7 @@ function getEmptyBook(title = '', amount = 0) {
         description: '',
         thumbnail: `http://coding-academy.org/books-photos/20.jpg`,
         listPrice: {
-            amount: 109,
+            amount,
             currencyCode: "EUR",
             isOnSale: false
         }
