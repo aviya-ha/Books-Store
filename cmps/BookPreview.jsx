@@ -4,7 +4,7 @@ export function BookPreview({ book , idex}) {
 		<h2>{book.title}</h2>
 		<h4>{book.subtitle}</h4>
 		<h3>{(book.listPrice.isOnSale) ? 'FOR SALE!' : 'NOT FOR SALE'}</h3>
-		<img  src={`assets/img/${idex + 1}.jpg`} alt= {book.title} />
+		<img  src={book.thumbnail} alt= {book.title} />
 		<h5>price : {book.listPrice.amount}{book.listPrice.currencyCode}</h5>
 	</article>
 }

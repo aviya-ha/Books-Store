@@ -72,7 +72,7 @@ function getEmptyBook(title = '', amount = 0) {
 
 
 function getDefaultFilter() {
-    return { txt: '', minPrice: 50, desc: '' }
+    return { txt: '', minPrice: 0, desc: '' }
 }
 
 function getFilterBy() {

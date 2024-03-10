@@ -1,0 +1,19 @@
+.book-filter{
+    background-color: var(--main-clr-light);
+    color: var(--main-contrast-light);
+    padding: 10px;
+    font-size: 16px;
+}
+
+.book-filter h2{
+    font-size: 1.6em;
+}
+
+.book-filter form{
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+
+}
