@@ -1,6 +1,9 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
+import { demoBooks } from '../booksDemo.js'
+// console.log('books:', books)
+
 const BOOK_KEY = 'bookDB'
 var gFilterBy 
 _createBooks()
@@ -51,16 +54,22 @@ function getEmptyBook(title = '', amount = 0) {
     return {
         id: '',
         title,
-        description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste rerum unde repellendus laborum, consectetur eligendi! Rerum, soluta neque culpa laudantium saepe aliquam dicta dignissimos. Corporis ducimus modi cupiditate soluta similique.',
-        thumbnail: `http://coding-academy.org/books-photos/20.jpg`,
+        subtitle: '',
+        authors: [ "Barbara Cartland" ],
+        publishedDate: utilService.getRandomIntInclusive(1980 , 2023),
+        description: utilService.makeLorem(50),
+        pageCount: utilService.getRandomIntInclusive(100 , 900),
+        categories: [ "Computers", "Hack" ],
+        thumbnail: "http://ca.org/books-photos/20.jpg",
+        language: "en",
         listPrice: {
-            amount,
-            currencyCode: "EUR",
-            isOnSale: false
+        amount,
+        currencyCode: "EUR",
+        isOnSale: false
         }
-
     }
 }
+
 
 function getDefaultFilter() {
     return { txt: '', minPrice: 50, desc: '' }
@@ -89,11 +98,11 @@ function getNextBookId(bookId) {
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
-        books = []
-        books.push(_createBook('A man named Oba', 300))
-        books.push(_createBook('Trail of Wonders', 200))
-        books.push(_createBook('Eden', 100))
-        books.push(_createBook('Looking for Alaska', 90))
+        books = booksDemo.demoBooks
+        // books.push(_createBook('A man named Oba', 300))
+        // books.push(_createBook('Trail of Wonders', 200))
+        // books.push(_createBook('Eden', 100))
+        // books.push(_createBook('Looking for Alaska', 90))
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }

@@ -9,14 +9,14 @@ export function BookList({ books, onRemoveCar, onUpdateCar, onSelectBook }) {
 	// }
 
 	if (!books.length) return <div>No books to show</div>
-	return <ul className="book-list">
+	return <ul className="book-list clean-list flex">
 		{
-			books.map((book ,idex) => <li key={book.id}>
+			books.map((book ,idex) => <li  key={book.id}>
 				<BookPreview book={book} idex = {idex}/>
 				<div className="book-actions">
 					<button className="remove-btn" onClick={() => onRemoveBook(book.id)}>X</button>
 					<button onClick={() => { onChangePrice(book) }}>Change price</button>
-					<button onClick={() => { onSelectBook(book) }}>Select book</button>
+					<button onClick={() => { onSelectBook(book) }}>Book details</button>
 				</div>
 			</li>)
 		}

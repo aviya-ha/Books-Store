@@ -11,4 +11,14 @@
   --gray2: rgb(155, 155, 155);
   --gray3: rgb(44, 44, 44);
 
+  --main-clr: #222a54;
+  --main-clr-light: #4d5477;
+  --main-contrast: #ce798e;
+  --main-contrast-light: #e9b1bf;
+
+  --clr-change: #696c9f;
+  --clrbg-main: #e7e8ff;
+  --clrbg-second: #ffe0e7;
+
+
 } 
