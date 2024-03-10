@@ -2,7 +2,7 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-var gFilterBy = { txt: '', minSpeed: 0 }
+var gFilterBy 
 _createBooks()
 
 export const bookService = {
@@ -11,22 +11,23 @@ export const bookService = {
     remove,
     save,
     getEmptyBook,
-    // getNextBookId,
-    // getFilterBy,
-    // setFilterBy
+    getNextBookId,
+    getFilterBy,
+    setFilterBy,
+    getDefaultFilter
 }
 
-function query() {
+function query(filterBy = getDefaultFilter()) {
     return storageService.query(BOOK_KEY)
-        .then(books => {
-            // if (gFilterBy.txt) {
-            //     const regex = new RegExp(gFilterBy.txt, 'i')
-            //     books = books.filter(book => regex.test(book.vendor))
-            // }
-            // if (gFilterBy.minSpeed) {
-            //     books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
-            // }
-            return books
+    .then(books => {
+        if (filterBy.txt) {
+            const regex = new RegExp(filterBy.txt, 'i')
+            books = books.filter(book => regex.test(book.title))
+        }
+        if (filterBy.minPrice) {
+            books = books.filter(book => book.listPrice.amount >= filterBy.minPrice)
+        }
+        return books
         })
 }
 
@@ -47,7 +48,6 @@ function save(book) {
 }
 
 function getEmptyBook(title = '', amount = 0) {
-    // return { id: '', title, listPrice }
     return {
         id: '',
         title,
@@ -62,24 +62,28 @@ function getEmptyBook(title = '', amount = 0) {
     }
 }
 
-// function getFilterBy() {
-//     return {...gFilterBy}
-// }
+function getDefaultFilter() {
+    return { txt: '', minPrice: 50, desc: '' }
+}
 
-// function setFilterBy(filterBy = {}) {
-//      if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
-//     if (filterBy.minSpeed !== undefined) gFilterBy.minSpeed = filterBy.minSpeed
-//     return gFilterBy
-// }
+function getFilterBy() {
+    return {...gFilterBy}
+}
 
-// function getNextBookId(bookId) {
-//     return storageService.query(BOOK_KEY)
-//         .then(books => {
-//             var idx = books.findIndex(book => book.id === bookId)
-//             if (idx === books.length - 1) idx = -1
-//             return books[idx + 1].id
-//         })
-// }
+function setFilterBy(filterBy = {}) {
+     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
+    if (filterBy.minPrice !== undefined) gFilterBy.minPrice = filterBy.minPrice
+    return gFilterBy
+}
+
+function getNextBookId(bookId) {
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            var idx = books.findIndex(book => book.id === bookId)
+            if (idx === books.length - 1) idx = -1
+            return books[idx + 1].id
+        })
+}
 
 
 function _createBooks() {
@@ -106,18 +110,5 @@ function _createBook(title, listPrice = 250) {
 //         currencyCode,
 //         isOnSale
 //     }
-
 // }
 
-// {
-//     "id": "OXeMG8wNskc",
-//     "title": "metus hendrerit",
-//     "description": "placerat nisi sodales suscipit tellus",
-//     "thumbnail": “http://coding-academy.org/books-photos/
-//    20.jpg",
-//     "listPrice": {
-//     "amount": 109,
-//     "currencyCode": "EUR",
-//     "isOnSale": false
-//     }
-//     }
