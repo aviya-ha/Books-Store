@@ -15,13 +15,3 @@
 
 }
 
-.book-preview{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.book-actions{
-    display: flex;
-    justify-content: center;
-}

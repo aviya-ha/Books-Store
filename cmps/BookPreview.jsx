@@ -3,7 +3,7 @@ export function BookPreview({ book , idex}) {
 	return <article className="book-preview">
 		<h2>{book.title}</h2>
 		<h4>{book.subtitle}</h4>
-		<h3>{(book.listPrice.isOnSale) ? 'FOR SALE!' : 'NOT FOR SALE'}</h3>
+		<h3>{book.listPrice.isOnSale && <img className="on-sale" src="/assets/sale-img/1.png"/> }</h3>
 		<img  src={book.thumbnail} alt= {book.title} />
 		<h5>price : {book.listPrice.amount}{book.listPrice.currencyCode}</h5>
 	</article>

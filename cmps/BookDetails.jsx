@@ -10,7 +10,6 @@ export function BookDetails({ book, onGoBack }) {
         else if (book.pageCount > 200) return 'Descent Reading'
         else return 'Light Reading'
     }
-console.log('new Date().getFullYear:',new Date().getFullYear())
 
 function getPublishedDate(){
     const thisYear = new Date().getFullYear()
@@ -21,8 +20,8 @@ function getPublishedDate(){
 }
 
 function getPriceClass() {
-    	if (book.listPrice.amount > 150) return ' red'
-    	else if (book.listPrice.amount < 20) return ' green'
+    	if (book.listPrice.amount >= 150) return ' red'
+    	else if (book.listPrice.amount <= 20) return ' green'
     	else return ''
     }
     
