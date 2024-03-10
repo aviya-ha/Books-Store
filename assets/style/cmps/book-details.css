@@ -1,3 +1,75 @@
+.book-details {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+}
+
+.book-details-header {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    font-size: 20px;
+}
+
+.book-details-header h1 {
+    font-size: 2em;
+}
+
+.book-details-header p {
+    font-size: 1em;
+    margin: 0;
+}
+
+.book-details-header h2 {
+    font-size: 1.5em;
+}
+
+.btn-go-back {
+    align-self: start;
+}
+
+.book-details-main {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.book-details-main img {
+    width: 20%;
+}
+
+.book-details .on-sale {
+    position: absolute;
+    width: 20%;
+    right: 20px;
+}
+
+.book-details-aside{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+   justify-content: center;
+   padding-inline: 20px;
+
+   font-size: 20px;
+}
+
+.book-details-aside p{
+    font-size: 1em;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 .book-details .red {
     color: red;
 }

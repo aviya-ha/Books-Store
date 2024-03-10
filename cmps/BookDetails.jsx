@@ -3,45 +3,51 @@
 export function BookDetails({ book, onGoBack }) {
 
     // Render time methods
-    
 
-    function getReadingType(){
+
+    function getReadingType() {
         if (book.pageCount > 500) return 'Serious Reading'
         else if (book.pageCount > 200) return 'Descent Reading'
         else return 'Light Reading'
     }
 
-function getPublishedDate(){
-    const thisYear = new Date().getFullYear()
-    const diff = thisYear - book.publishedDate
-    if (diff >= 10) return 'Vintage'
-    if (diff <= 1) return 'New'
+    function getPublishedDate() {
+        const thisYear = new Date().getFullYear()
+        const diff = thisYear - book.publishedDate
+        if (diff >= 10) return 'Vintage'
+        if (diff <= 1) return 'New'
 
-}
-
-function getPriceClass() {
-    	if (book.listPrice.amount >= 150) return ' red'
-    	else if (book.listPrice.amount <= 20) return ' green'
-    	else return ''
     }
-    
-new Date().getFullYear
+
+    function getPriceClass() {
+        if (book.listPrice.amount >= 150) return ' red'
+        else if (book.listPrice.amount <= 20) return ' green'
+        else return ''
+    }
+
+    new Date().getFullYear
     return <section className="book-details">
-        <button onClick={onGoBack}>Go back</button>
-        <h1>Title : {book.title}</h1>
-        <p>Authors: {book.authors.map(author => author + ' ')}</p>
-        <h2>Subtitle: {book.subtitle}</h2>
-        {/* <h5 className={getSpeedClass()}>Max speed: {car.maxSpeed}</h5> */}
-        <img src={book.thumbnail} alt={book.title} />
-        <div>
+        <h3>{book.listPrice.isOnSale && <img className="on-sale" src="/assets/sale-img/1.png" />}</h3>
+        <header className="book-details-header">
+        <button className="btn-go-back" onClick={onGoBack}>Go back</button>
+            <h1>Title : {book.title}</h1>
+            <p>Authors: {book.authors.map(author => author + ' ')}</p>
+            <h2>Subtitle: {book.subtitle}</h2>
+        </header>
+
+<main className="book-details-main">
+    <img src={book.thumbnail} alt={book.title} />
+        <aside className="book-details-aside">
             <p>language: {book.language}</p>
             <p>{getPublishedDate()}</p>
             <p>{getReadingType()}</p>
             <p>categories: {book.categories.map(categorie => categorie + ' ')}</p>
-        </div>
-        <p>{book.description}</p><p></p>
-        <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
-        <p>{(book.listPrice.isOnSale) ? 'FOR SALE!' : 'NOT FOR SALE'}</p>
+            <p>{book.description}</p><p></p>
+            <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
+        </aside>
+</main>
+        
+
     </section>
 
 }
