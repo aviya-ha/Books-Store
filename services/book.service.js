@@ -51,7 +51,7 @@ function getEmptyBook(title = '', amount = 0) {
     return {
         id: '',
         title,
-        description: '',
+        description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste rerum unde repellendus laborum, consectetur eligendi! Rerum, soluta neque culpa laudantium saepe aliquam dicta dignissimos. Corporis ducimus modi cupiditate soluta similique.',
         thumbnail: `http://coding-academy.org/books-photos/20.jpg`,
         listPrice: {
             amount,

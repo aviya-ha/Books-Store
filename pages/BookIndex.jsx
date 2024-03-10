@@ -2,12 +2,13 @@ const { useState , useEffect} = React
 
 import { bookService } from "../services/book.service.js"
 import { BookList } from "../cmps/BookList.jsx"
+import { BookDetails } from "../cmps/BookDetails.jsx"
 
 
 export function BookIndex(){
     const [books, setBooks] = useState(null)
     // const [filterBy, setFilterBy] = useState(carService.getDefaultFilter())
-    // const [selectedCar, setSelectedCar] = useState(null)
+    const [selectedBook, setSelectedBook] = useState(null)
     // const [userMsg, setUserMsg] = useState('')
 
     useEffect(() => {
@@ -49,10 +50,10 @@ export function BookIndex(){
     //         })
     // }
 
-    // function onSelectCar(car) {
-    //     console.log('selected car', car)
-    //     setSelectedCar(car)
-    // }
+    function onSelectBook(book) {
+        console.log('selected car', book)
+        setSelectedBook(book)
+    }
 
     // function flashMsg(txt) {
     //     setUserMsg(txt)
@@ -65,16 +66,28 @@ export function BookIndex(){
     // console.log('selectedCar from car index', selectedCar)
     if (!books) return <div>loading...</div>
     return <section className="book-index">
-        <React.Fragment>
-               <h1>Our books</h1>
-               <BookList
-                    books={books}
-                    // onRemoveCar={onRemoveCar}
-                    // onUpdateCar={onUpdateCar}
-                    // onSelectCar={onSelectCar}
-                />
-              
-            </React.Fragment>
-       
-    </section >
+         {
+             !selectedBook && <React.Fragment>
+                 {/* <CarFilter
+                     onSetFilter={onSetFilter}
+                     filterBy={filterBy} /> */}
+                 <h1>Our books</h1>
+                 <BookList
+                     books={books}
+                    //  onRemoveCar={onSelectCar}
+                    //  onUpdateCar={onSelectCar}
+                    onSelectBook={onSelectBook}
+                 />
+             </React.Fragment>
+         }
+ 
+         {
+             selectedBook && <BookDetails
+                 book = {selectedBook}
+                 onGoBack={() => onSelectBook(null)}
+             />
+         }
+ 
+         {/* <UserMsg msg={userMsg} /> */}
+     </section >
 }
