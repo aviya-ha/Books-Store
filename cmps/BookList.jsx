@@ -1,7 +1,7 @@
 import { BookPreview } from "./BookPreview.jsx"
 
 
-export function BookList({ books, onRemoveCar, onUpdateCar, onSelectBook }) {
+export function BookList({ books, onRemoveBook, onUpdateCar, onSelectBook }) {
 
 	// function onChangeSpeed(car) {
 	// 	car = { ...car, maxSpeed: car.maxSpeed + 10 }
