@@ -3,6 +3,8 @@ const { useParams, useNavigate } = ReactRouter
 const { Link } = ReactRouterDOM
 
 import { LongTxt } from "../cmps/LongTxt.jsx";
+import { AddReview } from "../cmps/AddReview.jsx";
+
 import { bookService } from "../services/book.service.js";
 
 
@@ -71,6 +73,9 @@ export function BookDetails() {
                 <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
             </aside>
         </main>
+        <div>
+            <AddReview/>
+        </div>
         <div className="nav-books">
             <Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
             <Link to={`/book/edit/${book.id}`}><button>Edit book</button></Link>
