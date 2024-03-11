@@ -3,7 +3,7 @@ const { Link } = ReactRouterDOM
 import { BookPreview } from "./BookPreview.jsx"
 
 
-export function BookList({ books, onRemoveBook, onUpdateBook, }) {
+export function BookList({ books, onRemoveBook }) {
 
 	if (!books.length) return <div>No books to show</div>
 	return <ul className="book-list clean-list flex">

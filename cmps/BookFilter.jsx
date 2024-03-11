@@ -26,17 +26,21 @@ export function BookFilter({ onSetFilter, filterBy }) {
 		<form onSubmit={onFilter}>
 			<label htmlFor="title">Title</label>
 			<input type="text"
+				
 				id="title"
 				name="txt"
 				value={filterByToEdit.txt}
+
 				onChange={handleChange}
 				placeholder="By title" />
 
 			<label htmlFor="minPrice">Min Price</label>
 			<input type="number"
+				
 				id="minPrice"
 				name="minPrice"
 				value={filterByToEdit.minPrice}
+
 				onChange={handleChange}
 				placeholder="By min price" />
 

@@ -8,28 +8,26 @@ import { bookService } from "../services/book.service.js";
 
 export function BookDetails() {
     const [isLoading, setIsLoading] = useState(true)
-	const [book, setBook] = useState(null)
-	const params = useParams()
-	const navigate = useNavigate()
-    // Render time methods
+    const [book, setBook] = useState(null)
+    const params = useParams()
+    const navigate = useNavigate()
 
-	useEffect(() => {
-		loadBook()
-	}, [params.bookId])
+    useEffect(() => {
+        loadBook()
+    }, [params.bookId])
 
     function loadBook() {
-		setIsLoading(true)
-		bookService.get(params.bookId)
-			.then(book => setBook(book))
-			.catch(err => {
-				console.log('Had issues loading book', err)
-				navigate('/book')
-			})
-			.finally(() => {
-				setIsLoading(false)
-			})
-	}
-
+        setIsLoading(true)
+        bookService.get(params.bookId)
+            .then(book => setBook(book))
+            .catch(err => {
+                console.log('Had issues loading book', err)
+                navigate('/book')
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
 
     function getReadingType() {
         if (book.pageCount > 500) return 'Serious Reading'
@@ -54,32 +52,30 @@ export function BookDetails() {
 
     if (isLoading) return <div>Loading details..</div>
     return <section className="book-details">
-
-
         <h3>{book.listPrice.isOnSale && <img className="on-sale" src="/assets/sale-img/1.png" />}</h3>
         <header className="book-details-header">
-        <Link to="/book"><button className="btn-go-back">Go back</button></Link>
+            <Link to="/book"><button className="btn-go-back">Go back</button></Link>
             <h1>Title : {book.title}</h1>
             <p>Authors: {book.authors.join(', ')}</p>
             <h2>Subtitle: {book.subtitle}</h2>
         </header>
 
-<main className="book-details-main">
-    <img src={book.thumbnail} alt={book.title} />
-        <aside className="book-details-aside">
-            <p>language: {book.language}</p>
-            <p>{getPublishedDate()}</p>
-            <p>{getReadingType()}</p>
-            <p>categories: {book.categories.join(', ')}</p>
-            <LongTxt txt={book.description} />
-            <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
-        </aside>
-</main>
-<div className="nav-books">
-			<Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
-			<Link to={`/book/edit/${book.id}`}><button>Edit book</button></Link>
-			<Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>
-		</div>
+        <main className="book-details-main">
+            <img src={book.thumbnail} alt={book.title} />
+            <aside className="book-details-aside">
+                <p>language: {book.language}</p>
+                <p>{getPublishedDate()}</p>
+                <p>{getReadingType()}</p>
+                <p>categories: {book.categories.join(', ')}</p>
+                <LongTxt txt={book.description} />
+                <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
+            </aside>
+        </main>
+        <div className="nav-books">
+            <Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
+            <Link to={`/book/edit/${book.id}`}><button>Edit book</button></Link>
+            <Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>
+        </div>
 
     </section>
 
