@@ -1,3 +1,4 @@
+import { LongTxt } from "../cmps/LongTxt.jsx";
 
 
 export function BookDetails({ book, onGoBack }) {
@@ -16,6 +17,7 @@ export function BookDetails({ book, onGoBack }) {
         const diff = thisYear - book.publishedDate
         if (diff >= 10) return 'Vintage'
         if (diff <= 1) return 'New'
+        return book.publishedDate
 
     }
 
@@ -32,7 +34,7 @@ export function BookDetails({ book, onGoBack }) {
         <header className="book-details-header">
         <button className="btn-go-back" onClick={onGoBack}>Go back</button>
             <h1>Title : {book.title}</h1>
-            <p>Authors: {book.authors.map(author => author + ' ')}</p>
+            <p>Authors: {book.authors.join(', ')}</p>
             <h2>Subtitle: {book.subtitle}</h2>
         </header>
 
@@ -42,8 +44,8 @@ export function BookDetails({ book, onGoBack }) {
             <p>language: {book.language}</p>
             <p>{getPublishedDate()}</p>
             <p>{getReadingType()}</p>
-            <p>categories: {book.categories.map(categorie => categorie + ' ')}</p>
-            <p>{book.description}</p><p></p>
+            <p>categories: {book.categories.join(', ')}</p>
+            <p><LongTxt txt={book.description} /></p><p></p>
             <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
         </aside>
 </main>
