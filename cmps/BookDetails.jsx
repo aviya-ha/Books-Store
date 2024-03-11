@@ -26,6 +26,7 @@ export function BookDetails({ book, onGoBack }) {
     }
 
     new Date().getFullYear
+    
     return <section className="book-details">
         <h3>{book.listPrice.isOnSale && <img className="on-sale" src="/assets/sale-img/1.png" />}</h3>
         <header className="book-details-header">
