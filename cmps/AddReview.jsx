@@ -1,14 +1,28 @@
+const { useParams } = ReactRouter
+
+
+import { bookService } from "../services/book.service.js";
 
 
 export function AddReview() {
+    const { bookId } = useParams()
+
     console.log('hay');
 
-    function onAddReview() {
+    function onAddReview(ev) {
+        ev.preventDefault()
+        console.log('ev:', ev.target.elements.fullName.value)
+        bookService.addReview(bookId, {
+            fullName: ev.target.elements.fullName.value,
+            rating: ev.target[1].value,
+            readAt: ev.target.elements.readAt.value
+        })
+
 
     }
 
 
-    return <section className = "add-review">
+    return <section className="add-review">
         <form id="frmReview" onSubmit={onAddReview}>
 
             <label htmlFor="fullName">Full Name:</label>
@@ -22,7 +36,7 @@ export function AddReview() {
             </select>
             <label htmlFor="readAt">Read at:</label>
             <input type="date" id="readAt" name="readAt" />
-            <button className ="btn-add-review">Add</button>
+            <button className="btn-add-review">Add</button>
 
         </form>
     </section>

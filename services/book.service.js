@@ -5,7 +5,7 @@ import { demoBooks } from '../booksDemo.js'
 // console.log('books:', books)
 
 const BOOK_KEY = 'bookDB'
-var gFilterBy 
+var gFilterBy
 _createBooks()
 
 export const bookService = {
@@ -17,26 +17,27 @@ export const bookService = {
     getNextBookId,
     getFilterBy,
     setFilterBy,
-    getDefaultFilter
+    getDefaultFilter,
+    addReview
 }
 
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(BOOK_KEY)
-    .then(books => {
-        if (filterBy.txt) {
-            const regex = new RegExp(filterBy.txt, 'i')
-            books = books.filter(book => regex.test(book.title))
-        }
-        if (filterBy.minPrice) {
-            books = books.filter(book => book.listPrice.amount >= filterBy.minPrice)
-        }
-        return books
+        .then(books => {
+            if (filterBy.txt) {
+                const regex = new RegExp(filterBy.txt, 'i')
+                books = books.filter(book => regex.test(book.title))
+            }
+            if (filterBy.minPrice) {
+                books = books.filter(book => book.listPrice.amount >= filterBy.minPrice)
+            }
+            return books
         })
 }
 
 function get(bookId) {
     return storageService.get(BOOK_KEY, bookId)
-    .then(book => _setNextPrevBookId(book))
+        .then(book => _setNextPrevBookId(book))
 }
 
 function remove(bookId) {
@@ -52,22 +53,36 @@ function save(book) {
     }
 }
 
+function addReview(bookId, review) {
+    get(bookId)
+        .then(book => {
+            if(!book.reviews || !book.reviews.length)  {
+                book.reviews = [{ ...review }]
+                save(book) 
+            }
+            else {
+                book.reviews.unshift({ ...review })
+                save(book)
+            }}
+        )
+}
+
 function getEmptyBook(title = '', amount = 0) {
     return {
         id: '',
         title,
         subtitle: '',
         authors: [],
-        publishedDate: utilService.getRandomIntInclusive(1980 , 2023),
+        publishedDate: utilService.getRandomIntInclusive(1980, 2023),
         description: utilService.makeLorem(50),
-        pageCount: utilService.getRandomIntInclusive(100 , 900),
+        pageCount: utilService.getRandomIntInclusive(100, 900),
         categories: [],
         thumbnail: '',
         language: '',
         listPrice: {
-        amount,
-        currencyCode: '',
-        isOnSale: false
+            amount,
+            currencyCode: '',
+            isOnSale: false
         }
     }
 }
@@ -78,11 +93,11 @@ function getDefaultFilter() {
 }
 
 function getFilterBy() {
-    return {...gFilterBy}
+    return { ...gFilterBy }
 }
 
 function setFilterBy(filterBy = {}) {
-     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
+    if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
     if (filterBy.minPrice !== undefined) gFilterBy.minPrice = filterBy.minPrice
     return gFilterBy
 }
