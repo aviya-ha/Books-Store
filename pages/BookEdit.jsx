@@ -60,11 +60,10 @@ export function BookEdit() {
             default:
                 break
         }
-        // let prevBookToEdit1 = prevBookToEdit
-        // console.log('prevBookToEdit:', prevBookToEdit)
-        // if (field === 'listPrice.amount') setBookToEdit((prevBook) => ({ ...prevBook, listPrice: { ...book.listPrice, amount: value } }))
-         setBookToEdit((prevBookToEdit) => ({ ...prevBookToEdit, [field]: value }))
-        // setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, [field]: value }))
+       
+        if (field === 'listPrice.amount') setBookToEdit((prevBookToEdit) => ({ ...prevBookToEdit, listPrice: { ...prevBookToEdit.listPrice, amount: value } }))
+          setBookToEdit((prevBookToEdit) => ({ ...prevBookToEdit, [field]: value }))
+        
     }
 
     console.log('bookToEdit:', bookToEdit)
