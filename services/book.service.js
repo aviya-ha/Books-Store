@@ -46,6 +46,7 @@ function save(book) {
     if (book.id) {
         return storageService.put(BOOK_KEY, book)
     } else {
+        book = _createBook(book.title, book.listPrice.amount)
         return storageService.post(BOOK_KEY, book)
     }
 }
@@ -55,16 +56,16 @@ function getEmptyBook(title = '', amount = 0) {
         id: '',
         title,
         subtitle: '',
-        authors: [ "Barbara Cartland" ],
+        authors: [],
         publishedDate: utilService.getRandomIntInclusive(1980 , 2023),
         description: utilService.makeLorem(50),
         pageCount: utilService.getRandomIntInclusive(100 , 900),
-        categories: [ "Computers", "Hack" ],
-        thumbnail: "http://ca.org/books-photos/20.jpg",
-        language: "en",
+        categories: [],
+        thumbnail: '',
+        language: '',
         listPrice: {
         amount,
-        currencyCode: "EUR",
+        currencyCode: '',
         isOnSale: false
         }
     }
@@ -103,6 +104,7 @@ function _createBooks() {
         // books.push(_createBook('Trail of Wonders', 200))
         // books.push(_createBook('Eden', 100))
         // books.push(_createBook('Looking for Alaska', 90))
+        console.log('books:', books)
         utilService.saveToStorage(BOOK_KEY, books)
     }
 }

@@ -1,22 +1,20 @@
+const { Link } = ReactRouterDOM
+
 import { BookPreview } from "./BookPreview.jsx"
 
 
-export function BookList({ books, onRemoveBook, onUpdateCar, onSelectBook }) {
-
-	// function onChangeSpeed(car) {
-	// 	car = { ...car, maxSpeed: car.maxSpeed + 10 }
-	// 	onUpdateCar(car)
-	// }
+export function BookList({ books, onRemoveBook, onUpdateBook, }) {
 
 	if (!books.length) return <div>No books to show</div>
 	return <ul className="book-list clean-list flex">
 		{
-			books.map((book ,idex) => <li  key={book.id}>
-				<BookPreview book={book} idex = {idex}/>
+			books.map(book => <li  key={book.id}>
+				<Link to={`/book/${book.id}`}>
+				<BookPreview book={book} />
+				</Link>
 				<div className="book-actions">
 					<button className="remove-btn" onClick={() => onRemoveBook(book.id)}>X</button>
-					<button onClick={() => { onChangePrice(book) }}>Change price</button>
-					<button onClick={() => { onSelectBook(book) }}>Book details</button>
+					<Link to={`/book/edit/${book.id}`}><button>Edit book</button></Link>
 				</div>
 			</li>)
 		}
