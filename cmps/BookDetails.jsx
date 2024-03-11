@@ -1,9 +1,34 @@
+const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
+const { Link } = ReactRouterDOM
+
 import { LongTxt } from "../cmps/LongTxt.jsx";
+import { bookService } from "../services/book.service.js";
 
 
-export function BookDetails({ book, onGoBack }) {
-
+export function BookDetails() {
+    const [isLoading, setIsLoading] = useState(true)
+	const [book, setBook] = useState(null)
+	const params = useParams()
+	const navigate = useNavigate()
     // Render time methods
+
+	useEffect(() => {
+		loadBook()
+	}, [params.bookId])
+
+    function loadBook() {
+		setIsLoading(true)
+		bookService.get(params.bookId)
+			.then(book => setBook(book))
+			.catch(err => {
+				console.log('Had issues loading book', err)
+				navigate('/book')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
 
 
     function getReadingType() {
@@ -27,12 +52,13 @@ export function BookDetails({ book, onGoBack }) {
         else return ''
     }
 
-    new Date().getFullYear
-    
+    if (isLoading) return <div>Loading details..</div>
     return <section className="book-details">
+
+
         <h3>{book.listPrice.isOnSale && <img className="on-sale" src="/assets/sale-img/1.png" />}</h3>
         <header className="book-details-header">
-        <button className="btn-go-back" onClick={onGoBack}>Go back</button>
+        <Link to="/book"><button className="btn-go-back">Go back</button></Link>
             <h1>Title : {book.title}</h1>
             <p>Authors: {book.authors.join(', ')}</p>
             <h2>Subtitle: {book.subtitle}</h2>
@@ -49,7 +75,11 @@ export function BookDetails({ book, onGoBack }) {
             <p className={getPriceClass()}>Price: {book.listPrice.amount}{book.listPrice.currencyCode}</p>
         </aside>
 </main>
-        
+<div className="nav-books">
+			<Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
+			<Link to={`/book/edit/${book.id}`}><button>Edit book</button></Link>
+			<Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>
+		</div>
 
     </section>
 
