@@ -19,6 +19,7 @@ export function Reviews(){
        bookService.get(bookId)
             .then((book) => {
                 setReviews([...book.reviews])
+                // פונקצייה קןלדבק
             })
             .catch(err => {
                 console.log('cant find reviews' ,err)

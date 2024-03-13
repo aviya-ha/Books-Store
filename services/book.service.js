@@ -57,11 +57,11 @@ function addReview(bookId, review) {
     get(bookId)
         .then(book => {
             if(!book.reviews || !book.reviews.length)  {
-                book.reviews = [{ ...review }]
+                book.reviews = [{ ...review , id: utilService.makeId() }]
                 save(book) 
             }
             else {
-                book.reviews.unshift({ ...review })
+                book.reviews.unshift({ ...review , id: utilService.makeId()})
                 save(book)
             }}
         )
